@@ -1,18 +1,16 @@
 #include <Arduino.h>
+#include <MP.h>
 
-// put function declarations here:
-int myFunction(int, int);
+constexpr int8_t MSG_ID = 1;
 
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+void setup()
+{
+  if (MP.begin() < 0) while (true);
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+void loop()
+{
+  static uint32_t data = 0;
+  MP.Send(MSG_ID, data++);
+  delay(100);
 }
